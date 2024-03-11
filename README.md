@@ -1,8 +1,8 @@
 # (tic tac toe)
 
-A command line game: play tic tac toe against a dumb bot! My first program written in clojure :)
+Play tic tac toe against a dumb bot! My first program written in clojure :)
 
-## How to use
+## How to run
 
 1. If you have [Leningen](https://leiningen.org) installed:
 
@@ -12,7 +12,7 @@ cd tic-tac-toe
 lein run
 ```
 
-2. Otherwise, if you have Java installed, you can clone the repo and run the uberjar:
+2. If you have Java installed you can run the uberjar:
 
 ```
 git clone https://github.com/lovemedicine/tic-tac-toe.git
