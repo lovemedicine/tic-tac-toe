@@ -1,10 +1,11 @@
-(ns clojure-app.core
+(ns tic-tac-toe.core
   (:gen-class)
   (:require [clojure.math])
   (:require [clojure.string])
   (:require [clojure.stacktrace]))
 
 (def ids-to-marks [" ", "X", "O"])
+(def bot-id 2)
 
 (defn prompt [text]
   (print text)
@@ -16,19 +17,16 @@
 
 (defn make-move
   ([board id [row col]]
-   (assoc board row (assoc (board row) col id)))
-  )
+   (assoc board row (assoc (board row) col id))))
 
 (defn transpose
   [matrix]
-  (apply mapv vector matrix)
-  )
+  (apply mapv vector matrix))
 
 (defn diagonals
   [board]
   [(mapv #(get-in board [% %]) [0 1 2])
-   (mapv #(get-in board [% (- 2 %)]) [0 1 2])
-   ])
+   (mapv #(get-in board [% (- 2 %)]) [0 1 2])])
 
 (defn all-lines
   [board]
@@ -53,12 +51,12 @@
 (defn num-to-move
   [num]
   [(int (clojure.math/floor (/ (- num 1) 3)))
-   (mod (- num 1) 3)]
-  )
+   (mod (- num 1) 3)])
 
 (defn valid-moves
   [board]
-  (map num-to-move (keep-indexed #(if (zero? %2) (+ %1 1) nil) (flatten board))))
+  (map num-to-move
+   (keep-indexed #(if (zero? %2) (+ %1 1) nil) (flatten board))))
 
 (defn find-forced-square
   [board id]
@@ -71,10 +69,7 @@
 (defn random-valid-move
   [board]
   (let [moves (valid-moves board)]
-    (nth moves (rand-int (count moves)))
-    ))
-
-(def bot-id 2)
+    (nth moves (rand-int (count moves)))))
 
 (defn move-to-num
   [[row col]]
@@ -146,9 +141,7 @@
       "" true
       "y" true
       "n" false
-      (choose-to-play-again)
-      )
-    ))
+      (choose-to-play-again))))
 
 (defn announce-winner
   [id]
@@ -184,9 +177,7 @@
           (conj move-history move))))
      (do
        (announce-winner (- 3 next-id))
-       (if (choose-to-play-again) (play) (say-goodbye))
-       ))
-     ))
+       (if (choose-to-play-again) (play) (say-goodbye))))))
 
 (defn -main
   []
